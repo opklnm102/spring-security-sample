@@ -1,3 +1,4 @@
 rootProject.name = 'spring-security-sample'
 
 include 'simple-security'
+include 'oauth2-login'
