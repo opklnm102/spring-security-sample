@@ -54,6 +54,10 @@ class OAuth2LoginControllerTest {
                 .andExpect(model().attribute("userAttributes", Collections.singletonMap("sub", "spring-security")));
     }
 
+    /*
+    test/ 의 main class가 시작될 때 자동으로 ComponentScan을 통해 loading
+    @SpringBootTest의 classes를 지정했을 경우 감지를 안하므로 @Import or @SpringBootTest(classes=)로 직접 지정 필요
+     */
     @TestConfiguration
     static class AuthorizedClient {
 

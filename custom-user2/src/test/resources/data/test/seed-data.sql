@@ -1,0 +1,1 @@
+INSERT INTO privilege (name, created_at, updated_at) VALUES ('TEST_READ_PRIVILEGE', '2023-06-24 14:58:45.215392','2023-06-24 14:58:45.215392');

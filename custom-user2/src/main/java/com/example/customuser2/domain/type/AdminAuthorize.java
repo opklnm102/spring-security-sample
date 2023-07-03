@@ -1,4 +1,6 @@
-package com.example.customuser;
+package com.example.customuser2.domain.type;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +9,6 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@WithMockCustomUser(email = "admin@example.com")
-public @interface WithMockCustomAdmin {
+@PreAuthorize("hasRole('ADMIN')")
+public @interface AdminAuthorize {
 }
