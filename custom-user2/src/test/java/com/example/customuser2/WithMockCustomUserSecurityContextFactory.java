@@ -37,6 +37,12 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 
         @Override
         public Optional<User> findByEmail(String email) {
+            if (email.contains("admin")) {
+                return Optional.of(new User(email, "", UserGrade.GOLD, UseYN.Y, List.of(new Role("ROLE_ADMIN", List.of()))));
+            }
+            if (email.contains("staff")) {
+                return Optional.of(new User(email, "", UserGrade.SILVER, UseYN.Y, List.of(new Role("ROLE_STAFF", List.of()))));
+            }
             return Optional.of(new User(email, "", UserGrade.BRONZE, UseYN.Y, List.of(new Role("ROLE_USER", List.of()))));
         }
 

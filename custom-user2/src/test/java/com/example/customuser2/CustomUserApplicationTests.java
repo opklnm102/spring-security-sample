@@ -1,13 +1,27 @@
 package com.example.customuser2;
 
+import com.example.customuser2.entity.user.User;
+import com.example.customuser2.repository.UserRepository;
 import com.example.customuser2.singleton.SecurityConfiguration;
+import com.example.customuser2.singleton.UserDetailsServiceConfiguration;
 import com.example.customuser2.web.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -17,7 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc
 @Import({
-        SecurityConfiguration.class
+        SecurityConfiguration.class,
+        UserDetailsServiceConfiguration.class
 })
 class CustomUserApplicationTests {
 
@@ -31,11 +46,11 @@ class CustomUserApplicationTests {
     }
 
     @Test
-    @WithMockCustomUser(email = "admin@example.com")
+    @WithMockCustomUser
     void userWhenWithMockCustomUserThenOk() throws Exception {
         mvc.perform(get("/user"))
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$.username", equalTo("admin@example.com")));
+           .andExpect(jsonPath("$.username", equalTo("user@example.com")));
     }
 
     @Test
@@ -44,5 +59,169 @@ class CustomUserApplicationTests {
         mvc.perform(get("/user"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$.username", equalTo("admin@example.com")));
+    }
+
+    @TestConfiguration
+    static class TestUserRepositoryConfiguration {
+
+        @Bean
+        public UserRepository userRepository() {
+            return new UserRepository() {
+                @Override
+                public Optional<User> findByEmail(String email) {
+                    return Optional.empty();
+                }
+
+                @Override
+                public void flush() {
+
+                }
+
+                @Override
+                public <S extends User> S saveAndFlush(S entity) {
+                    return null;
+                }
+
+                @Override
+                public <S extends User> List<S> saveAllAndFlush(Iterable<S> entities) {
+                    return null;
+                }
+
+                @Override
+                public void deleteAllInBatch(Iterable<User> entities) {
+
+                }
+
+                @Override
+                public void deleteAllByIdInBatch(Iterable<Long> longs) {
+
+                }
+
+                @Override
+                public void deleteAllInBatch() {
+
+                }
+
+                @Override
+                public User getOne(Long aLong) {
+                    return null;
+                }
+
+                @Override
+                public User getById(Long aLong) {
+                    return null;
+                }
+
+                @Override
+                public User getReferenceById(Long aLong) {
+                    return null;
+                }
+
+                @Override
+                public <S extends User> List<S> findAll(Example<S> example) {
+                    return null;
+                }
+
+                @Override
+                public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
+                    return null;
+                }
+
+                @Override
+                public <S extends User> List<S> saveAll(Iterable<S> entities) {
+                    return null;
+                }
+
+                @Override
+                public List<User> findAll() {
+                    return null;
+                }
+
+                @Override
+                public List<User> findAllById(Iterable<Long> longs) {
+                    return null;
+                }
+
+                @Override
+                public <S extends User> S save(S entity) {
+                    return null;
+                }
+
+                @Override
+                public Optional<User> findById(Long aLong) {
+                    return Optional.empty();
+                }
+
+                @Override
+                public boolean existsById(Long aLong) {
+                    return false;
+                }
+
+                @Override
+                public long count() {
+                    return 0;
+                }
+
+                @Override
+                public void deleteById(Long aLong) {
+
+                }
+
+                @Override
+                public void delete(User entity) {
+
+                }
+
+                @Override
+                public void deleteAllById(Iterable<? extends Long> longs) {
+
+                }
+
+                @Override
+                public void deleteAll(Iterable<? extends User> entities) {
+
+                }
+
+                @Override
+                public void deleteAll() {
+
+                }
+
+                @Override
+                public List<User> findAll(Sort sort) {
+                    return null;
+                }
+
+                @Override
+                public Page<User> findAll(Pageable pageable) {
+                    return null;
+                }
+
+                @Override
+                public <S extends User> Optional<S> findOne(Example<S> example) {
+                    return Optional.empty();
+                }
+
+                @Override
+                public <S extends User> Page<S> findAll(Example<S> example, Pageable pageable) {
+                    return null;
+                }
+
+                @Override
+                public <S extends User> long count(Example<S> example) {
+                    return 0;
+                }
+
+                @Override
+                public <S extends User> boolean exists(Example<S> example) {
+                    return false;
+                }
+
+                @Override
+                public <S extends User, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+                    return null;
+                }
+            };
+        }
     }
 }
