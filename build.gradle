@@ -2,13 +2,19 @@ plugins {
     id 'java'
 }
 
-group 'me.dong'
-version '1.0-SNAPSHOT'
-sourceCompatibility = '17'
+allprojects {
+    group = "${projectGroup}"
+    version = "${applicationVersion}"
+    sourceCompatibility = "${javaVersion}"
 
-repositories {
-    mavenCentral()
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
+subprojects {
+    apply plugin: 'java'
+
+    dependencies {
+    }
 }

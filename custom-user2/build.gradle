@@ -1,21 +1,9 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.1.1'
-    id 'io.spring.dependency-management' version '1.1.0'
-    id 'com.netflix.nebula.integtest' version '10.1.4'
-    id 'io.freefair.lombok' version '8.1.0'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
-}
-
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    sourceCompatibility = '17'
-}
-
-repositories {
-    mavenCentral()
+    id "org.springframework.boot" version "${springBootVersion}"
+    id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
+    id "io.freefair.lombok" version "${lombokVersion}"
+    id "com.netflix.nebula.integtest" version "${netflixNebulaIntegtest}"
+    id "org.asciidoctor.jvm.convert" version "${asciidoctorConvertVersion}"
 }
 
 configurations {
